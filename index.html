@@ -8,88 +8,137 @@
 </head>
 <body>
     <script>
-        /*
-        computerPlay();
-        roundPlay();
-    //function that generates the choice of the computer
+
+//function that generates the choice of the computer
         function computerPlay(){
         //variable Answer
-            let answer = 'string';
-    //Randomly return Rock, Papper Or Scissors 
+            let computerAnswer;
+        //Randomly return Rock, Papper Or Scissors 
             //Randomly generate a number betwen 0 to 2
             let randomNumber = Math.floor(Math.random()*3);
                     // console.log(randomNumber);
             //Give each number a property
             // if it is 0 = Rock
             if(randomNumber === 0){
-                answer = 'rock';}
+                computerAnswer = 'rock';}
             // if it is 1 = paper
             else if(randomNumber === 1){
-                answer = 'paper';}
+                computerAnswer = 'paper';}
             // if it is 2 = Scissors
             else {
-                answer = 'scissors';}
+                computerAnswer = 'scissors';}
             //Return answer.
+            return computerAnswer;
             
-            console.log(computerAnswer);
+}
+
+
+//function that picks the users choice
+function userPlay(){
+    let userAnswernl = prompt("What's your play?");
+    let userAnswer = userAnswernl.toLowerCase();
+    
+    return userAnswer;
 }
 
 //function that plays a single round
 function roundPlay(){
-    //declare variables
-    let computerAnswer = 'paper';
-    let userAnswer = 'rock';
-    let result;
+    // computerPlay();
+   
+    // userPlay();
+    let result = 'string';
+    let computerAnswer = computerPlay();
+    console.log(computerAnswer);
+    let userAnswer =  userPlay();
+    let x;
+    
+    
+    
     //compare computerAnswer vs userAnswer
         //if user answer is rock and computeranswer is paper
     if (userAnswer == 'rock' && computerAnswer == 'paper' ){
-        result = false;
-        
+        result = "user lose rock < paper";
+        x=0;
+        console.log(result);
     }
         //if user answer is rock and computeranswer is scissors
     else if (userAnswer == 'rock' &&  computerAnswer == 'scissors' ){
-        result = true;
-        
+         result = "user wins rock > paper";
+         x=1;
+        console.log(result);
     }
         //if user answer is paper and computeranswer is scissors
     else if (userAnswer == 'paper' && computerAnswer == 'scissors' ){
-        result = false;
-
+         result = "user lose paper < scissors";
+         x=0;
+        console.log(result);
     }
          //if user answer is paper and computeranswer is rock
          else if (userAnswer == 'paper' && computerAnswer == 'rock' ){
-        result = true;
-
+         result = "user wins paper > rock";
+         x=1;
+        console.log(result);
     }
          //if user answer is SCISSORS and computeranswer is rocks
-         else if (userAnswer == 'scissors' && computerAnswer == 'rocks' ){
-        result = false;
-
+         else if (userAnswer == 'scissors' && computerAnswer == 'rock' ){
+         result = "user lose scissors < rock";
+         x=0;
+        console.log(result);
     }
          //if user answer is scissors and computeranswer is paper
          else if (userAnswer == 'scissors' && computerAnswer == 'paper' ){
-        result = true;
-
+         result = "user wins scissors > paper";
+         x=1;
+        console.log(result);
+    }
+        else if (userAnswer == computerAnswer){
+         result = "draw";
+        console.log(result);
     }
          //drawn
         else {
-            result = undefined;
+            result='error, bad grammar';
+            console.log(result)
         }
-    //print if the user wins or if it lose or drawn
-    if (result == true){
-        console.log('User Wins')
+        return x;
+}
 
-    } else if (result == false ){
-        console.log('User Lose')
+//the game function
+function game(){
+    //points variables
+        let uPoint=0;
+        let cPoint=0;
+//create a loop to call the roundplay
+    for (let i = 0; i <5;) {
+       
+        let round = roundPlay();
+       if (i < 5,round == 0){
+             //adding points
+             cPoint++;
+             i++;
+         }
+         else if (i < 5,round == 1 ){
+            //adding points
+            uPoint++;
+            i++;
+         } else{
+            console.log('draw');
+         }
+         console.log('computer:',cPoint,'user:',uPoint);
+    }
+    //compare the points betwen the upoints and the cpoints
+    // and determinate the winner
+    if(uPoint > cPoint){
+    console.log('the winner is the user with: ',uPoint,' points!');
     }
     else{
-        console.log('It is a Drawn')
-
+        console.log('USER LOSE')
     }
-}
-*/
-    
 
+ }
+
+game();
+    
     </script>
 </body>
 </html>
