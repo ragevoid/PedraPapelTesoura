@@ -5,13 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
 </head>
 <body>
-    <script>
+<div id="startDiv">
+        <div class="titleContent"><p class="title">Rock, Paper <br> & scissors!</p></div>
+       
+    <div class="howto">
+        <h2>HOW TO PLAY?</h2>
+        <p>Rock wins to scissors <br>Scissors wins to paper <br>Paper wins to rock</p>
+    </div>
+     <button id="startButton">START GAME</button>
+</div>
+<div id="playDiv">
+    <div id="resultDiv">
+        <p    id="showResult"></p></div>
+    <div id="selections" class="playerSelections">
+        <button data-type="scissors" id="scissors" class="selection"></button>
+        <button data-type="rock" id="rock" class="selection"></button>
+        <button data-type="paper" id="paper" class="selection"></button>
+    </div>
+</div>
 
-//function that generates the choice of the computer
-        function computerPlay(){
-        //variable Answer
+
+<div id="scoreDiv"><p id="scoreText"></p></div>
+
+    <script>
+const buttons= document.querySelectorAll('button.selection');
+let playerScore=0;
+let computerScore=0;
+
+
+
+
+// Function that hides the startBackground
+    document.getElementById("startButton").onclick = function() {
+    document.getElementById("startDiv").style.display = "none";
+    document.getElementById("playDiv").style.display = "flex";
+    document.getElementById("scoreDiv").style.display = "flex";
+    } 
+
+//Function that makes the computerPlay
+
+function computerPlay(){
             let computerAnswer;
         //Randomly return Rock, Papper Or Scissors 
             //Randomly generate a number betwen 0 to 2
@@ -29,17 +70,84 @@
                 computerAnswer = 'scissors';}
             //Return answer.
             return computerAnswer;
-            
 }
 
 
-//function that picks the users choice
-function userPlay(){
-    let userAnswernl = prompt("What's your play?");
-    let userAnswer = userAnswernl.toLowerCase();
-    
-    return userAnswer;
+//Function That takes the choice of the user and iniciates the computerSelection
+
+buttons.forEach(button => {
+    button.addEventListener("click",() =>{
+        const computerSelection = computerPlay();
+        console.log('c',computerSelection)
+        const playerSelection =`${button.id}` ;
+        console.log('p',playerSelection)
+        let roundResult = roundPlay(computerSelection, playerSelection);
+        let roundCheck = comparePoints(playerScore,computerScore);
+        console.log("R",roundCheck)
+        let para = document.getElementById("scoreText");
+        let node = document.createTextNode(playerScore);
+        para.appendChild(node);
+    })
+
+
+})
+
+
+
+function comparePoints(playerScore, computerScore){
+    if (playerScore === 5 && computerScore < playerScore){
+    document.getElementById("playDiv").style.display = "none";
+    document.getElementById("endDiv").style.display = "flex";
+    return 'user'
+
+    }else if(computerScore === 5 && playerScore < computerScore){
+    document.getElementById("playDiv").style.display = "none";
+    document.getElementById("endDiv").style.display = "flex";
+    return 'computer'
+
+    }else{
+        return 'again'
+    }
+
 }
+
+//Function that compare answers 
+function roundPlay(computerSelection, playerSelection){
+    let result='';
+    if (computerSelection === 'rock' && playerSelection === 'paper' ){
+        result = "user wins";
+        playerScore++;
+    }
+    else if (computerSelection === 'rock' && playerSelection === 'scissors' ){
+        result = "user lose";
+        computerScore++;
+    }
+    else if (computerSelection === 'paper' && playerSelection === 'scissors' ){
+        result = "user wins";
+        playerScore++;
+    }
+    else if (computerSelection === 'paper' && playerSelection === 'rock' ){
+        result = "user lose";
+        computerScore++;
+    }
+    else if (computerSelection === 'scissors' && playerSelection === 'rock' ){
+        result = "user wins";
+        playerScore++;
+    }
+    else if (computerSelection === 'scissors' && playerSelection === 'paper' ){
+        result = "user lose";
+        computerScore++;
+    }else{
+        result= 'tie';
+    }
+console.log(result);
+console.log('P',playerScore);
+console.log('C',computerScore);
+
+}
+
+
+/*
 
 //function that plays a single round
 function roundPlay(){
@@ -138,7 +246,7 @@ function game(){
  }
 
 game();
-    
+    */
     </script>
 </body>
 </html>
